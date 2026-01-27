@@ -73,17 +73,28 @@ const ChatContainer = () => {
     <div className="w-full max-w-md mx-auto h-[600px] flex flex-col rounded-lg shadow-2xl overflow-hidden border border-border/30">
       <ChatHeader />
       
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-card chat-scrollbar">
-        {messages.map((message) => (
-          <ChatMessage
-            key={message.id}
-            message={message.text}
-            isUser={message.isUser}
-            timestamp={message.timestamp}
-          />
-        ))}
-        {isTyping && <TypingIndicator />}
-        <div ref={messagesEndRef} />
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-primary relative chat-scrollbar">
+        {/* Floating animated circles */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="floating-circle w-32 h-32 bg-primary-foreground/10 rounded-full absolute -top-8 -right-8"></div>
+          <div className="floating-circle-slow w-24 h-24 bg-primary-foreground/8 rounded-full absolute top-1/3 -left-6"></div>
+          <div className="floating-circle-fast w-20 h-20 bg-primary-foreground/10 rounded-full absolute bottom-1/4 right-4"></div>
+          <div className="floating-circle w-16 h-16 bg-primary-foreground/6 rounded-full absolute bottom-8 left-1/4"></div>
+        </div>
+        
+        {/* Messages */}
+        <div className="relative z-10 space-y-4">
+          {messages.map((message) => (
+            <ChatMessage
+              key={message.id}
+              message={message.text}
+              isUser={message.isUser}
+              timestamp={message.timestamp}
+            />
+          ))}
+          {isTyping && <TypingIndicator />}
+          <div ref={messagesEndRef} />
+        </div>
       </div>
 
       {showQuickQuestions && messages.length === 1 && (
