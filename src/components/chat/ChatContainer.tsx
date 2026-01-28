@@ -74,14 +74,14 @@ const ChatContainer = () => {
       <ChatHeader />
       
       <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 relative chat-scrollbar">
-        {/* Floating animated circles - light colorful balls */}
+        {/* Floating animated circles - yellowish and blackish balls */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="floating-circle w-32 h-32 bg-red-200/40 rounded-full absolute -top-8 -right-8"></div>
-          <div className="floating-circle-slow w-24 h-24 bg-blue-200/40 rounded-full absolute top-1/3 -left-6"></div>
-          <div className="floating-circle-fast w-20 h-20 bg-green-200/40 rounded-full absolute bottom-1/4 right-4"></div>
-          <div className="floating-circle w-16 h-16 bg-yellow-200/40 rounded-full absolute bottom-8 left-1/4"></div>
-          <div className="floating-circle-slow w-14 h-14 bg-purple-200/30 rounded-full absolute top-1/2 right-1/3"></div>
-          <div className="floating-circle-fast w-18 h-18 bg-pink-200/35 rounded-full absolute top-1/4 left-1/3"></div>
+          <div className="floating-circle w-32 h-32 bg-yellow-200/50 rounded-full absolute -top-8 -right-8"></div>
+          <div className="floating-circle-slow w-24 h-24 bg-gray-300/40 rounded-full absolute top-1/3 -left-6"></div>
+          <div className="floating-circle-fast w-20 h-20 bg-yellow-100/60 rounded-full absolute bottom-1/4 right-4"></div>
+          <div className="floating-circle w-16 h-16 bg-gray-400/30 rounded-full absolute bottom-8 left-1/4"></div>
+          <div className="floating-circle-slow w-14 h-14 bg-amber-200/40 rounded-full absolute top-1/2 right-1/3"></div>
+          <div className="floating-circle-fast w-18 h-18 bg-gray-500/25 rounded-full absolute top-1/4 left-1/3"></div>
         </div>
         
         {/* Messages */}
