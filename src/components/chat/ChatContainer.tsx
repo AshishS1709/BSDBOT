@@ -14,14 +14,14 @@ interface Message {
 }
 
 const ChatContainer = () => {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: "welcome",
-      text: "Hey there! 👋 Welcome to Brandsetu Digital!\n\nI'm here to help you with any questions about our services, pricing, or how we can help grow your brand.\n\nWhat would you like to know?",
-      isUser: false,
-      timestamp: formatTime(new Date()),
-    },
-  ]);
+  const getWelcomeMessage = (): Message => ({
+    id: "welcome",
+    text: "Hey there! 👋 Welcome to Brandsetu Digital!\n\nI'm here to help you with any questions about our services, pricing, or how we can help grow your brand.\n\nWhat would you like to know?",
+    isUser: false,
+    timestamp: formatTime(new Date()),
+  });
+
+  const [messages, setMessages] = useState<Message[]>([getWelcomeMessage()]);
   const [isTyping, setIsTyping] = useState(false);
   const [showQuickQuestions, setShowQuickQuestions] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -69,9 +69,14 @@ const ChatContainer = () => {
     setMessages((prev) => [...prev, botMessage]);
   };
 
+  const handleClear = () => {
+    setMessages([getWelcomeMessage()]);
+    setShowQuickQuestions(true);
+  };
+
   return (
     <div className="w-full max-w-md mx-auto h-[600px] flex flex-col rounded-lg shadow-2xl overflow-hidden border border-border/30">
-      <ChatHeader />
+      <ChatHeader onClear={handleClear} />
       
       <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 relative chat-scrollbar">
         {/* Floating animated circles - yellowish and blackish balls */}
