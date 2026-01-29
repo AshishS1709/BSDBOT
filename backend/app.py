@@ -3,8 +3,8 @@ Brandsetu Digital Chatbot Backend - Fixed Version
 Improved FAQ matching and response generation
 """
 
-from flask import Flask, request, jsonify
-from flask_cors import CORS
+from flask import Flask, request, jsonify # type: ignore
+from flask_cors import CORS # type: ignore
 from datetime import datetime
 import sqlite3
 import json
@@ -75,7 +75,7 @@ class DatabaseManager:
         conn.close()
     
     def save_message(self, session_id: str, message_type: str, message: str, 
-                     response: str = None, matched_faq: str = None):
+                     response: str = None, matched_faq: str = None): # type: ignore
         """Save a message to database"""
         conn = self.get_connection()
         cursor = conn.cursor()
@@ -107,7 +107,7 @@ class DatabaseManager:
         
         return [dict(row) for row in rows]
     
-    def save_analytics(self, session_id: str, event_type: str, event_data: Dict = None):
+    def save_analytics(self, session_id: str, event_type: str, event_data: Dict = None): # type: ignore
         """Save analytics event"""
         conn = self.get_connection()
         cursor = conn.cursor()
@@ -414,7 +414,7 @@ class BrandsetuChatbot:
         # Normalize confidence score
         confidence = min(best_score / 50, 1.0)
         
-        return best_match, confidence, matched_key
+        return best_match, confidence, matched_key # type: ignore
     
     def generate_response(self, user_message: str, session_id: str) -> Dict:
         """Generate contextual response"""

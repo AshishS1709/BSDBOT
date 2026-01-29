@@ -5,6 +5,7 @@ import ChatInput from "./ChatInput";
 import TypingIndicator from "./TypingIndicator";
 import QuickQuestions from "./QuickQuestions";
 
+
 interface Message {
   id: string;
   text: string;
@@ -59,7 +60,7 @@ const ChatContainer = () => {
     setDynamicOptions([]); // clear options after user action
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/api/chat" , {
+      const response = await fetch("http://127.0.0.1:5000/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -78,7 +79,7 @@ const ChatContainer = () => {
 
       setMessages((prev) => [...prev, botMessage]);
 
-      // ✅ SET OPTIONS FROM BACKEND
+      //  SET OPTIONS FROM BACKEND
       if (data.data?.options && data.data.options.length > 0) {
         setDynamicOptions(data.data.options);
       }
@@ -103,44 +104,50 @@ const ChatContainer = () => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto h-[600px] flex flex-col rounded-[16px] shadow-2xl border border-border/30">
+    <>
+      {/* Background Blur Overlay for the website */}
+      <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40" />
 
-      <ChatHeader onClear={handleClear} />
+      <div className="w-full max-w-md mx-auto h-[600px] flex flex-col rounded-[24px] shadow-2xl border border-white/20 bg-transparent overflow-hidden relative z-50">
 
-      <div className="flex-1 overflow-x-hidden p-4 space-y-4 bg-gray-50 relative chat-scrollbar rounded-b-[12px]">
-         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="floating-circle w-32 h-32 bg-yellow-200/50 rounded-full absolute -top-8 -right-8"></div>
-          <div className="floating-circle-slow w-24 h-24 bg-gray-300/40 rounded-full absolute top-1/3 -left-6"></div>
-          <div className="floating-circle-fast w-20 h-20 bg-yellow-100/60 rounded-full absolute bottom-1/4 right-4"></div>
-          <div className="floating-circle w-16 h-16 bg-gray-400/30 rounded-full absolute bottom-8 left-1/4"></div>
-          <div className="floating-circle-slow w-14 h-14 bg-amber-200/40 rounded-full absolute top-1/2 right-1/3"></div>
-          <div className="floating-circle-fast w-18 h-18 bg-gray-500/25 rounded-full absolute top-1/4 left-1/3"></div>
+
+        <div className="relative z-10 flex flex-col h-full">
+          <ChatHeader onClear={handleClear} />
+
+          <div className="flex-1 overflow-x-hidden p-4 space-y-4 bg-white/60 backdrop-blur-md relative chat-scrollbar mx-2 mb-2 rounded-[20px] border border-white/20 shadow-inner">
+            {/* Floating Balls in Message Area */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+              <div className="floating-circle w-24 h-24 bg-yellow-300/60 rounded-full absolute top-8 right-8"></div>
+              <div className="floating-circle-slow w-32 h-32 bg-gray-300/50 rounded-full absolute bottom-16 left-8"></div>
+              <div className="floating-circle-fast w-20 h-20 bg-pink-300/60 rounded-full absolute top-1/2 left-1/3"></div>
+            </div>
+            <div className="relative z-10 space-y-4">
+              {messages.map((message) => (
+                <ChatMessage
+                  key={message.id}
+                  message={message.text}
+                  isUser={message.isUser}
+                  timestamp={message.timestamp}
+                />
+              ))}
+
+              {isTyping && <TypingIndicator />}
+              <div ref={messagesEndRef} />
+            </div>
           </div>
-        <div className="relative z-10 space-y-4">
-          {messages.map((message) => (
-            <ChatMessage
-              key={message.id}
-              message={message.text}
-              isUser={message.isUser}
-              timestamp={message.timestamp}
-            />
-          ))}
 
-          {isTyping && <TypingIndicator />}
-          <div ref={messagesEndRef} />
+          {/* ✅ DYNAMIC OPTIONS */}
+          {dynamicOptions.length > 0 && (
+            <QuickQuestions
+              questions={dynamicOptions}
+              onSelect={(option) => handleSend(option)}
+            />
+          )}
+
+          <ChatInput onSend={handleSend} disabled={isTyping} />
         </div>
       </div>
-
-      {/* ✅ DYNAMIC OPTIONS */}
-      {dynamicOptions.length > 0 && (
-        <QuickQuestions
-          questions={dynamicOptions}
-          onSelect={(option) => handleSend(option)}
-        />
-      )}
-
-      <ChatInput onSend={handleSend} disabled={isTyping} />
-    </div>
+    </>
   );
 };
 

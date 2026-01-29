@@ -25,7 +25,7 @@ const ChatInput = ({ onSend, disabled }: ChatInputProps) => {
   };
 
   return (
-    <div className="p-4 border-t border-border/50 bg-card rounded-b-[12px]">
+    <div className="p-4 border-t border-white/30 bg-transparent">
       <div className="flex gap-2 items-center">
         <input
           type="text"
@@ -34,7 +34,7 @@ const ChatInput = ({ onSend, disabled }: ChatInputProps) => {
           onKeyDown={handleKeyDown}
           placeholder="Type your question..."
           disabled={disabled}
-          className="flex-1 px-4 py-3 rounded-full bg-muted/50 border border-border/50 text-sm text-card-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all disabled:opacity-50"
+          className="flex-1 px-4 py-3 rounded-full bg-white/50 border border-white/40 text-sm text-foreground placeholder:text-muted-foreground focus:bg-white/70 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all disabled:opacity-50"
         />
         <Button
           onClick={handleSend}

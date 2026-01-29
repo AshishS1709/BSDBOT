@@ -229,3 +229,16 @@
 .animate-float {
   animation: float 2s ease-in-out infinite;
 }
+
+@keyframes wave {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-1px);
+  }
+}
+
+.animate-wave {
+  animation: wave 1.5s ease-in-out infinite;
+}
