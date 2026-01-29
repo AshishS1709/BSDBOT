@@ -25,7 +25,7 @@ const ChatInput = ({ onSend, disabled }: ChatInputProps) => {
   };
 
   return (
-    <div className="p-4 border-t border-border/50 bg-card rounded-b-lg">
+    <div className="p-4 border-t border-border/50 bg-card rounded-b-[12px]">
       <div className="flex gap-2 items-center">
         <input
           type="text"

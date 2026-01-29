@@ -216,3 +216,16 @@
 .floating-circle-fast {
   animation: floatFast 4s ease-in-out infinite;
 }
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-1px);
+  }
+}
+
+.animate-float {
+  animation: float 2s ease-in-out infinite;
+}
